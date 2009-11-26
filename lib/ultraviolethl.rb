@@ -37,7 +37,7 @@ module Redmine
           # lib/redmine/mime_type.rb). Any better solution would be 
           # welcome !
           syntax = ""
-          syntax = Uv.syntax_for_file("#{RAILS_ROOT}/files/"+filename) if File.readable?(filename)
+          syntax = Uv.syntax_for_file(filename) if File.readable?(filename)
           if syntax.blank?
             s = {'html'=>'htm,xhtml','c'=>'cpp,h,hh','javascript'=>'js','html'=>'rhtml',
                   'perl'=>'pl,pm','php'=>'php3,php4,php5','python'=>'py','ruby'=>'rb,rbw,ruby,rake',
