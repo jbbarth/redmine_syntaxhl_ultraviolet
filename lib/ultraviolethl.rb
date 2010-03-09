@@ -22,6 +22,8 @@ module Redmine
         #   <code class="language">Your Code</code>
         #   will make Redmine call : colorize("Your Code", "language")
         def colorize(text, format)
+          format = "shell-unix-generic" if format == "shell"
+          format = "plain_text" unless Uv.syntaxes.include?(format)
           Uv.parse(text, "xhtml", format, true, theme)
         end
 
