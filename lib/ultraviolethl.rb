@@ -45,7 +45,7 @@ module Redmine
             ext = File.extname(filename).gsub('.','')
             s.each do |k,v|
               syntax = k if v.split(',').include?(ext)
-              puts "#{k} => #{v} ; syntax? #{syntax}" 
+              Rails.logger.error "#{k} => #{v} ; syntax? #{syntax}" 
             end
             syntax = ext if syntax.blank? && Uv.syntaxes.include?(ext)
           end
@@ -53,7 +53,7 @@ module Redmine
           if syntax.blank?
             ERB::Util.h(content)
           else
-            content = Uv.parse(content.chomp, "xhtml", syntax.first.first, false, theme)
+            content = Uv.parse(content.chomp, "xhtml", syntax.to_s, false, theme)
             #next line is ugly, but Redmine handles its own line numbers with tables (which is great!),
             # and it splits ultraviolet "pre" content, so we have to restore it by hand...
             content.gsub(/\n<\/pre>$/,"</pre>").split(/\r?\n+/).join("</pre>\n<pre class=\"#{theme}\">")
